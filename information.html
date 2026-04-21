@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer with Part Info</title>
+    <link rel="stylesheet" href="information.css?v=3">
+    <style>body { display: none; }</style>
+    <!-- Menggunakan Import Map untuk import Three.js tanpa bundler -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    
+    <!-- Panel Informasi yang muncul saat part diklik -->
+    <div id="info-panel">
+        <!-- Keterangan Login Tengah Atas (Diatas Part Information) -->
+        <div id="role-label" class="role-label-panel" style="display:none;"></div>
+        <h3 id="panel-title">Project Information</h3>
+        <table>
+            <tbody id="info-table-body">
+            </tbody>
+        </table>
+        <button id="close-btn">Close</button>
+    </div>
+
+    <!-- Tombol Dashboard -->
+    <a href="dashboard.html" class="btn-dashboard-fixed">
+        DASHBOARD
+    </a>
+
+    <!-- Tombol Logout Statis di tengah bawah -->
+    <a href="logout.php" class="btn-logout-fixed">
+        <svg viewBox="0 0 24 24"><path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 012 2v2h-2V4H5v16h9v-2h2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2h9z"></path></svg>
+        LOGOUT
+    </a>
+
+    <script type="module" src="information.js?v=15"></script>
+</body>
+</html>
