@@ -1,6 +1,10 @@
+/* File: dashboard.js
+ * Deskripsi: Front-end logic yang menjembatani fetch ke endpoint backend proyek. Merender list-list Card 
+ * serta menangani upload Multi-part form dari modal window.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     // Cek auth, jika belum login, kembalikan ke login.html
-    fetch('check_auth.php', { cache: 'no-store' })
+    fetch('login_check_auth.php', { cache: 'no-store' })
         .then(res => res.json())
         .then(auth => {
             if(!auth.logged_in) {
@@ -43,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             createAddCard();
         }
 
-        fetch('list_projects.php')
+        fetch('dashboard_list_projects.php')
             .then(res => res.json())
             .then(response => {
                 if (response.status === 'success') {
@@ -71,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Error fetching projects:', err));
     };
 
-    // renderProjects dipanggil didalam check_auth.php promise
+    // renderProjects dipanggil didalam login_check_auth.php promise
     
     // --- LOGIKA FORM & MODAL ---
     
@@ -105,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('projectName', projectName);
             formData.append('projectFile', file);
 
-            fetch('create_project.php', {
+            fetch('dashboard_create_project.php', {
                 method: 'POST',
                 body: formData
             })

@@ -1,4 +1,10 @@
 <?php
+/**
+ * File: dashboard_create_project.php
+ * Deskripsi: Skrip pemrosesan API untuk menerima unggahan (Upload) File model 3D (ekstensi .GLB).
+ * Termasuk mengecek validitas tipe file, error PHP upload, mengamankan nama unik,  
+ * dan menambahkannya sebagai baris baru ke tabel 'project_table' DB.
+ */
 // Deteksi AWAL jika file melebih batas upload `post_max_size` PHP 
 // (karena saat ini terjadi, PHP bisa mengosongkan semua isi $_POST, $_FILES, dan kadang memutus $_SESSION)
 if (isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0 && empty($_POST) && empty($_FILES)) {

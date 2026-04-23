@@ -168,3 +168,9 @@ canvas {
     margin-bottom: 15px;
     letter-spacing: 0.5px;
 }
+/* 
+ * File: information.css
+ * Deskripsi: Styling khusus untuk halaman Model 3D Viewer. 
+ * Ini mengamankan agar kanvas (Three.JS) memenuhi layar (fullscreen) dan menjaga agar 
+ * panel 'Part Information' tetap tampil rapi di sisi kanan antarmuka. 
+ */

@@ -283,3 +283,8 @@ main {
     fill: currentColor;
 }
 
+/* 
+ * File: dashboard.css
+ * Deskripsi: File CSS utama yang bertanggung jawab untuk menampilkan desain antarmuka bagi Dashboard Manajer/Desainer.
+ * Di dalamnya mengatur layout grid untuk proyek, modal pop-up unggah, serta pengaturan tata letak tombol logout.
+ */

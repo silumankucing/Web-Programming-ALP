@@ -102,4 +102,8 @@ body {
 
 .login-footer a:hover {
     text-decoration: underline;
-}
+}/* 
+ * File: login.css
+ * Deskripsi: File ini mengatur tampilan halaman Login (form otentikasi). 
+ * Menggunakan latar belakang yang halus dan kartu login di tengah layar pengguna.
+ */

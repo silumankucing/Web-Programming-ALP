@@ -1,11 +1,20 @@
 <?php
+/**
+ * File: information_update_part_data.php
+ * Deskripsi: Menangani pengeditan atau penambahan baru informasi dari *part 3D model* ke Database MariaDB/MySQL.
+ * Melakukan proteksi otorisasi secara ketat; 
+ *  - "Operator" hanya bisa edit progress dan Note. 
+ *  - "Manager" hanya bisa edit note.
+ *  - "Designer" memegang kuasa memperbarui general info lainnya.
+ */
 ini_set('session.save_path', __DIR__ . DIRECTORY_SEPARATOR . 'sessions');
-require 'db_connect.php';
+require 'db_connect.php'; // Mengkoneksikan skrip ini ke Database
 session_start();
 
+// Mengekstrak label akses role (privilege) pengguna dari server session state
 $privilege = isset($_SESSION['privilege']) ? $_SESSION['privilege'] : '';
 if ($privilege !== 'Designer' && $privilege !== 'Operator' && $privilege !== 'Manager') {
-    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+    echo json_encode(['status' => 'error', 'message' => 'Unauthorized / Akses Ilegal!']);
     exit;
 }
 

@@ -1,3 +1,8 @@
+/* File: information.js
+ * Deskripsi: Skrip utama yang membentang pustaka Three.js ke canvas Browser. 
+ * Memuat file GLB/GLTF secara dinamis, menambahkan interaksi ray-casting klik komponen,
+ * serta menampilkan dan mengatur update informasi parameter tabel 'data_table'.
+ */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -11,7 +16,7 @@ const closeBtn = document.getElementById('close-btn');
 let userPrivilege = '';
 
 // Cek Auth sebelum merender canvas 3D
-fetch('check_auth.php', { cache: 'no-store' })
+fetch('login_check_auth.php', { cache: 'no-store' })
     .then(res => res.json())
     .then(auth => {
         if(!auth.logged_in) {
@@ -43,7 +48,7 @@ const projectFileParam = urlParams.get('file');
 
 if (projectId) {
     // Ambil data DB
-    fetch(`get_project_data.php?project_id=${projectId}`)
+    fetch(`information_get_project_data.php?project_id=${projectId}`)
         .then(res => res.json())
         .then(json => {
             if (json.status === 'success') {
@@ -334,12 +339,13 @@ function showInfo(data, isProject = false) {
             }
         });
 
-        // Tambahan input multiline untuk Note khusus Operator & Manager
-        if (userPrivilege === 'Operator' || userPrivilege === 'Manager') {
-            const isNoteReadonly = (userPrivilege === 'Operator') ? 'readonly' : ''; // Jika manager, bebas edit note; Operator read-only atau sesuai konteks sebelumnya? User bilang Manager *hanya* catatan.
-            // Sesuai dialog sebelumnya Operator bisa edit note. Saya bebaskan untuk keduanya.
+        // Tambahan input multiline untuk Note
+        const privilegeLower = String(userPrivilege).toLowerCase();
+        if (privilegeLower === 'operator' || privilegeLower === 'manager' || privilegeLower === 'designer') {
+            // Tampilkan note. Jika desainer, atur sebagai readonly (hanya melihat).
+            const isNoteReadonly = (privilegeLower === 'designer') ? 'readonly' : ''; 
             
-            tbody.innerHTML += `<tr><th>Note</th><td><textarea id="edit-note" data-key="note" style="width:100%; box-sizing:border-box; resize:vertical;" rows="3">${data.note || ''}</textarea></td></tr>`;
+            tbody.innerHTML += `<tr><th>Note</th><td><textarea id="edit-note" data-key="note" style="width:100%; box-sizing:border-box; resize:vertical;" rows="3" ${isNoteReadonly}>${data.note || ''}</textarea></td></tr>`;
         }
 
         closeBtn.style.display = 'inline-block'; // Selalu tampilkan jika berada di part info
@@ -361,7 +367,7 @@ function showInfo(data, isProject = false) {
                     note: document.getElementById('edit-note') ? document.getElementById('edit-note').value : data.note
                 };
 
-                fetch('update_part_data.php', {
+                fetch('information_update_part_data.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)

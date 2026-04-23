@@ -1,3 +1,7 @@
+/* File: login.js
+ * Deskripsi: Front-end logic yang bertarung dengan Event Listener Submit di login.html.
+ * Menangkap nilai, membungkusnya sebagai DOM FormData, lalu fetch secara Asynchronous ke \login.php\.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
 
